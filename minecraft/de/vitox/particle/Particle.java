@@ -2,18 +2,18 @@ package de.vitox.particle;
 
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-
 import de.vitox.RenderUtils;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.util.MathHelper;
+
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_NICEST;
 
 public class Particle {
 
 	public int x;
 	public int y;
 	public int k;
-	public ParticleGenerator pg;
+	public ParticleGenerator particleGenerator;
 	public boolean reset;
 	public float size;
 	private Random random = new Random();
@@ -27,12 +27,12 @@ public class Particle {
 	public void draw() {
 		//Reset
 		if (x == -1){
-			x = pg.breite;
+			x = particleGenerator.width;
 			reset = true;
 		}
 		
 		if (y == -1){
-			y = pg.höhe;
+			y = particleGenerator.height;
 			reset = true;
 		}
 		
@@ -40,7 +40,11 @@ public class Particle {
 		this.y -= random.nextInt(2);
 		
 		int xx = (int) (MathHelper.cos(0.1F * (this.x + this.k)) * 10.0F);
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glEnable(GL_POLYGON_SMOOTH);
+		glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 		RenderUtils.drawBorderedCircle(this.x + xx, this.y, this.size, 0, 0xffFFFFFF);
+		glDisable(GL_POLYGON_SMOOTH);
 	}
 
 
