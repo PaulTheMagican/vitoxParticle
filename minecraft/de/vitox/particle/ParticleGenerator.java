@@ -2,36 +2,28 @@ package de.vitox.particle;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.util.MathHelper;
 
 public class ParticleGenerator {
 
-	public static int anzahl;
-	public static int breite;
-	public static int höhe;
+    public static int amount;
+    public static int width;
+    public static int height;
 
-	public ArrayList<Particle> particles = new ArrayList();
-	private Random random = new Random();
-	private Timer timer = new Timer();
+    public ArrayList<Particle> particles = new ArrayList();
+    private Random random = new Random();
 
-	public ParticleGenerator(int anzahl, int breite, int höhe) {
-		this.anzahl = anzahl;
-		this.breite = breite;
-		this.höhe = höhe;
-		for (int i = 0; i < anzahl; i++) {
-			this.particles.add(new Particle(this.random.nextInt(breite), this.random.nextInt(höhe)));
-		}
-	}
+    public ParticleGenerator(int amount, int width, int height) {
+        this.amount = amount;
+        this.width = width;
+        this.height = height;
+        for (int i = 0; i < amount; i++) {
+            this.particles.add(new Particle(this.random.nextInt(width), this.random.nextInt(height)));
+        }
+    }
 
-	public void drawParticles() {
-		for (Particle p : this.particles)
-		{		
-			p.draw();
-		}
-	}
+    public void drawParticles() {
+        for (Particle p : this.particles) {
+            p.draw();
+        }
+    }
 }
